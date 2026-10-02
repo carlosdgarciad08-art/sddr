@@ -1,0 +1,2357 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>OCTOBER</title>
+
+<style>
+
+/* =========================
+   GENERAL
+========================= */
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    margin:0;
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    background:#000;
+    color:white;
+    font-family:Georgia,serif;
+}
+
+
+/* =========================
+   VIDEO DE FONDO
+========================= */
+
+#videoFondo{
+    position:fixed;
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    z-index:-3;
+}
+
+.oscuro{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.55);
+
+    z-index:-2;
+}
+
+
+/* =========================
+   LUNA
+========================= */
+
+#luna{
+    position:fixed;
+
+    top:8%;
+    right:10%;
+
+    width:90px;
+    height:90px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 35%,
+            #fff,
+            #ddd 55%,
+            #aaa
+        );
+
+    box-shadow:
+        0 0 30px rgba(255,255,255,.7),
+        0 0 70px rgba(255,255,255,.3);
+
+    z-index:-1;
+}
+
+
+/* =========================
+   PANTALLAS
+========================= */
+
+.pantalla{
+
+    position:relative;
+
+    width:100%;
+    min-height:100vh;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:25px;
+
+}
+
+.pantalla.activa{
+
+    display:flex;
+
+}
+
+
+/* =========================
+   CAJA
+========================= */
+
+.caja{
+
+    width:min(700px,92%);
+
+    padding:35px;
+
+    background:rgba(0,0,0,.65);
+
+    border:1px solid rgba(255,255,255,.25);
+
+    border-radius:20px;
+
+    text-align:center;
+
+    backdrop-filter:blur(8px);
+
+    box-shadow:
+        0 0 40px rgba(0,0,0,.7);
+
+}
+
+
+/* =========================
+   INICIO
+========================= */
+
+#inicio h1{
+
+    font-size:
+        clamp(55px,12vw,120px);
+
+    margin:0 0 15px;
+
+    letter-spacing:10px;
+
+    text-shadow:
+        0 0 15px white,
+        0 0 35px rgba(255,255,255,.5);
+
+}
+
+#inicio p{
+
+    font-size:20px;
+
+    opacity:.9;
+
+}
+
+
+/* =========================
+   BOTONES
+========================= */
+
+button{
+
+    border:none;
+
+    padding:13px 25px;
+
+    margin:10px;
+
+    border-radius:30px;
+
+    background:
+        rgba(255,255,255,.15);
+
+    color:white;
+
+    font-family:Georgia,serif;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    border:
+        1px solid rgba(255,255,255,.35);
+
+    transition:.3s;
+
+}
+
+button:hover{
+
+    background:
+        rgba(255,255,255,.3);
+
+    transform:scale(1.06);
+
+    box-shadow:
+        0 0 20px rgba(255,255,255,.3);
+
+}
+
+
+/* =========================
+   ESTRELLAS
+========================= */
+
+.estrella{
+
+    position:fixed;
+
+    width:3px;
+    height:3px;
+
+    background:white;
+
+    border-radius:50%;
+
+    opacity:.8;
+
+    animation:
+        parpadear 2s infinite ease-in-out;
+
+    pointer-events:none;
+
+}
+
+@keyframes parpadear{
+
+    0%,100%{
+
+        opacity:.2;
+
+        transform:scale(.7);
+
+    }
+
+    50%{
+
+        opacity:1;
+
+        transform:scale(1.4);
+
+    }
+
+}
+
+
+/* =========================
+   HOJAS
+========================= */
+
+.hoja{
+
+    position:fixed;
+
+    top:-50px;
+
+    font-size:25px;
+
+    pointer-events:none;
+
+    animation:
+        caer linear infinite;
+
+}
+
+@keyframes caer{
+
+    0%{
+
+        transform:
+            translateY(-50px)
+            rotate(0deg);
+
+    }
+
+    100%{
+
+        transform:
+            translateY(110vh)
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================
+   CORAZONES
+========================= */
+
+.corazon{
+
+    position:absolute;
+
+    font-size:45px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    animation:
+        flotar 2s infinite ease-in-out;
+
+}
+
+.corazon:hover{
+
+    transform:scale(1.4);
+
+}
+
+.corazon.encontrado{
+
+    opacity:.2;
+
+    pointer-events:none;
+
+}
+
+@keyframes flotar{
+
+    0%,100%{
+
+        transform:
+            translateY(0);
+
+    }
+
+    50%{
+
+        transform:
+            translateY(-15px);
+
+    }
+
+}
+
+
+/* =========================
+   PIBBLE
+========================= */
+
+#videoPibble{
+
+    width:min(500px,90%);
+
+    max-height:55vh;
+
+    border-radius:20px;
+
+    display:block;
+
+    margin:20px auto;
+
+    object-fit:cover;
+
+}
+
+
+/* =========================
+   ANIMALES
+========================= */
+
+.animales{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+
+    margin:25px 0;
+
+}
+
+.animales img{
+
+    width:140px;
+    height:140px;
+
+    object-fit:cover;
+
+    border-radius:20px;
+
+    cursor:pointer;
+
+    border:
+        2px solid transparent;
+
+    transition:.3s;
+
+}
+
+.animales img:hover{
+
+    transform:scale(1.08);
+
+    border-color:white;
+
+}
+
+.animales img.encontrado{
+
+    opacity:.35;
+
+    filter:grayscale(1);
+
+    pointer-events:none;
+
+}
+
+
+/* =========================
+   ROMPECABEZAS
+========================= */
+
+#imagenReferencia{
+
+    width:180px;
+
+    border-radius:12px;
+
+    margin:10px auto 20px;
+
+    display:block;
+
+}
+
+#tablero{
+
+    width:min(360px,85vw);
+
+    aspect-ratio:1;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:2px;
+
+    background:#111;
+
+}
+
+.pieza{
+
+    width:100%;
+    height:100%;
+
+    background-image:
+        url("rompecabezas.jpg");
+
+    background-size:300% 300%;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.pieza.seleccionada{
+
+    filter:brightness(1.8);
+
+    outline:
+        3px solid white;
+
+    z-index:2;
+
+}
+
+
+/* =========================
+   LLAVE
+========================= */
+
+#llave{
+
+    font-size:70px;
+
+    display:none;
+
+    margin:15px;
+
+    animation:
+        aparecer .6s ease;
+
+}
+
+@keyframes aparecer{
+
+    from{
+
+        transform:scale(0);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+
+/* =========================
+   SOBRE
+========================= */
+
+.sobre{
+
+    font-size:120px;
+
+    cursor:pointer;
+
+    transition:.4s;
+
+    animation:
+        respirar 2s infinite ease-in-out;
+
+}
+
+.sobre:hover{
+
+    transform:scale(1.1);
+
+}
+
+@keyframes respirar{
+
+    0%,100%{
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        transform:scale(1.06);
+
+    }
+
+}
+
+
+/* =========================
+   CARTA
+========================= */
+
+#carta{
+
+    align-items:flex-start;
+
+    padding-top:35px;
+    padding-bottom:35px;
+
+}
+
+.carta-box{
+
+    max-height:88vh;
+
+    overflow-y:auto;
+
+    overflow-x:hidden;
+
+    padding-bottom:35px;
+
+}
+
+
+/* BARRA DE DESPLAZAMIENTO */
+
+.carta-box::-webkit-scrollbar{
+
+    width:6px;
+
+}
+
+.carta-box::-webkit-scrollbar-thumb{
+
+    background:
+        rgba(255,255,255,.4);
+
+    border-radius:10px;
+
+}
+
+
+/* PÁGINAS */
+
+.pagina{
+
+    display:none;
+
+    animation:
+        aparecerPagina .5s ease;
+
+    padding-bottom:20px;
+
+}
+
+.pagina.activa{
+
+    display:block;
+
+}
+
+.pagina p{
+
+    font-size:18px;
+
+    line-height:1.8;
+
+    margin:18px 0;
+
+}
+
+.carta-box button{
+
+    position:relative;
+
+    z-index:5;
+
+}
+
+@keyframes aparecerPagina{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(15px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================
+   FINAL
+========================= */
+
+#final h1{
+
+    font-size:
+        clamp(45px,10vw,90px);
+
+    margin-bottom:20px;
+
+    text-shadow:
+        0 0 20px rgba(255,255,255,.7);
+
+}
+
+.final-imagenes{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+    margin-top:25px;
+
+}
+
+.final-imagenes img{
+
+    width:130px;
+    height:130px;
+
+    object-fit:cover;
+
+    border-radius:20px;
+
+}
+
+
+/* =========================
+   CELULAR
+========================= */
+
+@media(max-width:600px){
+
+    .caja{
+
+        width:94%;
+
+        padding:20px;
+
+    }
+
+    .carta-box{
+
+        max-height:90vh;
+
+        overflow-y:auto;
+
+        padding-bottom:30px;
+
+    }
+
+    .pagina p{
+
+        font-size:16px;
+
+        line-height:1.6;
+
+    }
+
+    .carta-box button{
+
+        margin:8px 4px;
+
+    }
+
+    .animales img{
+
+        width:100px;
+        height:100px;
+
+    }
+
+    #luna{
+
+        width:60px;
+        height:60px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     VIDEO DE FONDO
+========================= -->
+
+<video
+    id="videoFondo"
+    autoplay
+    muted
+    loop
+    playsinline>
+
+    <source
+        src="fondo.mp4"
+        type="video/mp4">
+
+</video>
+
+
+<div class="oscuro"></div>
+
+<div id="luna"></div>
+
+
+<!-- =========================
+     MÚSICA INICIO
+========================= -->
+
+<audio
+    id="musicaInicio"
+    loop>
+
+    <source
+        src="musicaInicio.mp3"
+        type="audio/mpeg">
+
+</audio>
+
+
+<!-- =========================
+     MÚSICA CARTA
+========================= -->
+
+<audio
+    id="musicaCarta"
+    loop>
+
+    <source
+        src="musicaCarta.mp3"
+        type="audio/mpeg">
+
+</audio>
+
+
+<!-- =========================
+     INICIO
+========================= -->
+
+<section
+    id="inicio"
+    class="pantalla activa">
+
+    <div class="caja">
+
+        <h1>OCTOBER</h1>
+
+        <button
+            onclick="comenzar()">
+
+            Comenzar
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     JUEGO CORAZONES
+========================= -->
+
+<section
+    id="juego"
+    class="pantalla">
+
+    <div class="caja">
+
+        <h2>
+            Encuentra los 5 corazones ❤️
+        </h2>
+
+        <p id="mensajeCorazones">
+            Encontrados: 0 / 5
+        </p>
+
+
+        <div
+            class="corazon"
+            style="top:20%;left:20%"
+            onclick="encontrarCorazon(this)">
+
+            ❤️
+
+        </div>
+
+
+        <div
+            class="corazon"
+            style="top:30%;right:20%"
+            onclick="encontrarCorazon(this)">
+
+            ❤️
+
+        </div>
+
+
+        <div
+            class="corazon"
+            style="bottom:25%;left:30%"
+            onclick="encontrarCorazon(this)">
+
+            ❤️
+
+        </div>
+
+
+        <div
+            class="corazon"
+            style="bottom:20%;right:30%"
+            onclick="encontrarCorazon(this)">
+
+            ❤️
+
+        </div>
+
+
+        <div
+            class="corazon"
+            style="top:50%;left:50%"
+            onclick="encontrarCorazon(this)">
+
+            ❤️
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PIBBLE
+========================= -->
+
+<section
+    id="pibblePantalla"
+    class="pantalla">
+
+    <div class="caja">
+
+        <h2>
+            Encontraste algo ❤️
+        </h2>
+
+
+        <video
+            id="videoPibble"
+            muted
+            playsinline
+            controls>
+
+            <source
+                src="videoPibble.mp4"
+                type="video/mp4">
+
+        </video>
+
+
+        <button
+            onclick="irAnimales()">
+
+            Buscar a los demás
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ANIMALES
+========================= -->
+
+<section
+    id="animales"
+    class="pantalla">
+
+    <div class="caja">
+
+        <h2>
+            Ahora encuentra a los demás 🐾
+        </h2>
+
+        <p id="mensajeAnimales">
+            Encontrados: 0 / 3
+        </p>
+
+
+        <div class="animales">
+
+            <img
+                src="pibble.jpg"
+                onclick="encontrarPersonaje(this)"
+                alt="Pibble">
+
+
+            <img
+                src="foca.jpg"
+                onclick="encontrarPersonaje(this)"
+                alt="Foca">
+
+
+            <img
+                src="gato.jpg"
+                onclick="encontrarPersonaje(this)"
+                alt="Gato">
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     ROMPECABEZAS
+========================= -->
+
+<section
+    id="rompecabezasPantalla"
+    class="pantalla">
+
+    <div class="caja">
+
+        <h2>
+            Un último reto ❤️
+        </h2>
+
+        <p>
+            Completa la imagen.
+        </p>
+
+
+        <img
+            id="imagenReferencia"
+            src="rompecabezas.jpg"
+            alt="Imagen de referencia">
+
+
+        <div id="tablero"></div>
+
+
+        <p id="mensajePuzzle"></p>
+
+
+        <div id="llave">
+            🔑
+        </div>
+
+
+        <button
+            id="botonLlave"
+            style="display:none"
+            onclick="tomarLlave()">
+
+            Tomar la llave ❤️
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     SOBRE
+========================= -->
+
+<section
+    id="sobrePantalla"
+    class="pantalla">
+
+    <div class="caja">
+
+        <h2>
+            Encontraste la llave...
+        </h2>
+
+        <p>
+            Ahora puedes abrir lo que estaba esperando por ti.
+        </p>
+
+
+        <div
+            class="sobre"
+            onclick="abrirSobre()">
+
+            💌
+
+        </div>
+
+
+        <p>
+            Toca el sobre.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CARTA
+========================= -->
+
+<section
+    id="carta"
+    class="pantalla">
+
+    <div class="caja carta-box">
+
+
+        <!-- PÁGINA 1 -->
+
+        <div
+            class="pagina activa"
+            id="pagina1">
+
+            <h2>
+                Para ti ❤️
+            </h2>
+
+
+            <p>
+                Quiero empezar diciéndote que eres una persona
+                a la que aprecio, adoro y admiro muchísimo.
+            </p>
+
+
+            <p>
+                Eres alguien con mucho talento, alguien a quien
+                respeto y que se ha vuelto muy importante para mí.
+            </p>
+
+
+            <p>
+                He aprendido muchas cosas contigo y también he
+                disfrutado muchísimo cada momento que hemos compartido.
+            </p>
+
+
+            <p>
+                Sé que no soy la persona más detallista del mundo,
+                pero espero que este pequeño detalle pueda sacarte
+                una sonrisa y hacerte sentir lo especial que eres para mí.
+            </p>
+
+
+            <p>
+                Contigo he podido compartir partes de mí que no suelo
+                mostrar con cualquiera, y eso es algo que valoro muchísimo,
+                porque no es fácil para mí abrirme de esa manera con alguien.
+            </p>
+
+
+            <button
+                onclick="siguientePagina()">
+
+                Continuar ❤️
+
+            </button>
+
+        </div>
+
+
+        <!-- PÁGINA 2 -->
+
+        <div
+            class="pagina"
+            id="pagina2">
+
+
+            <p>
+                Quiero que sepas que siempre voy a estar para ti,
+                sin importar cómo cambien las cosas con el tiempo.
+            </p>
+
+
+            <p>
+                Y aunque a veces termine durmiendo más tarde o
+                cambiando un poco mis horarios, no me importa.
+                Si es para compartir un rato contigo, para mí vale la pena.
+            </p>
+
+
+            <p>
+                Ahora mismo me siento feliz, alegre y con muchas
+                ganas de seguir haciendo cosas y mejorando poco a poco.
+            </p>
+
+
+            <p>
+                Y tú también has sido parte de eso.
+                Me motivas a hacer las cosas bien, a intentar ser
+                diferente y a convertirme en alguien mejor.
+            </p>
+
+
+            <p>
+                También quiero ser alguien en quien puedas confiar,
+                alguien que puedas apreciar y con quien puedas sentirte
+                cómoda compartiendo tu tiempo.
+            </p>
+
+
+            <p>
+                Por eso valoro muchísimo cada momento que me has dado,
+                incluso aquellos que quizá para ti fueron pequeños,
+                porque para mí significaron mucho.
+            </p>
+
+
+            <button
+                onclick="anteriorPagina()">
+
+                ⬅️ Volver
+
+            </button>
+
+
+            <button
+                onclick="siguientePagina()">
+
+                Continuar ❤️
+
+            </button>
+
+        </div>
+
+
+        <!-- PÁGINA 3 -->
+
+        <div
+            class="pagina"
+            id="pagina3">
+
+
+            <p>
+                Sé que todavía no me conoces completamente,
+                pero todo el tiempo que hemos compartido ha sido
+                realmente especial para mí.
+            </p>
+
+
+            <p>
+                No hay nada más bonito para mí que poder compartir
+                momentos contigo, hablar contigo y simplemente
+                disfrutar de tu compañía.
+            </p>
+
+
+            <p>
+                No ha pasado prácticamente ningún día sin que
+                piense en ti de alguna manera.
+            </p>
+
+
+            <p>
+                Te quiero muchísimo, y siento que haces que mis días
+                tengan un poquito más de sentido y de ganas de seguir
+                haciendo las cosas bien.
+            </p>
+
+
+            <p>
+                También estoy intentando ser más disciplinado,
+                dejar atrás algunos malos hábitos y construir otros mejores.
+            </p>
+
+
+            <p>
+                Creo que cuando tienes cerca a personas que te inspiran
+                y te motivan, crecer y mejorar se vuelve un poco más fácil.
+            </p>
+
+
+            <button
+                onclick="anteriorPagina()">
+
+                ⬅️ Volver
+
+            </button>
+
+
+            <button
+                onclick="siguientePagina()">
+
+                Continuar ❤️
+
+            </button>
+
+        </div>
+
+
+        <!-- PÁGINA 4 -->
+
+        <div
+            class="pagina"
+            id="pagina4">
+
+
+            <p>
+                Por eso quise hacer esto.
+            </p>
+
+
+            <p>
+                Quería hacer algo que fuera especialmente para ti,
+                porque creo que hay personas que merecen que les
+                dediquemos nuestro tiempo.
+            </p>
+
+
+            <p>
+                Y tú eres una de esas personas para mí.
+            </p>
+
+
+            <p>
+                Estoy muy agradecido por haberte conocido,
+                por todo lo que hemos compartido y por cada momento
+                que hemos podido vivir juntos.
+            </p>
+
+
+            <p>
+                Solamente quería decirte que te quiero muchísimo.
+            </p>
+
+
+            <p>
+                Gracias por tu tiempo, por los momentos,
+                por las enseñanzas y por todos esos recuerdos
+                que hemos ido construyendo.
+            </p>
+
+
+            <p>
+                Espero que podamos seguir compartiendo más cosas,
+                seguir estando juntos, conocernos cada vez más,
+                reírnos y crear muchos más recuerdos.
+            </p>
+
+
+            <p>
+                No sé exactamente qué nos espera más adelante,
+                pero sí sé que me gustaría seguir caminando a tu lado
+                y descubrirlo poco a poco contigo.
+            </p>
+
+
+            <button
+                onclick="anteriorPagina()">
+
+                ⬅️ Volver
+
+            </button>
+
+
+            <button
+                onclick="siguientePagina()">
+
+                Final ❤️
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FINAL
+========================= -->
+
+<section
+    id="final"
+    class="pantalla">
+
+    <div class="caja">
+
+
+        <h1>
+            Happy October ❤️
+        </h1>
+
+
+        <p>
+            Gracias por ser parte de mis recuerdos favoritos.
+        </p>
+
+
+        <p>
+            Y espero que esto sea solamente una pequeña parte
+            de todo lo que todavía nos queda por vivir.
+        </p>
+
+
+        <div class="final-imagenes">
+
+
+            <img
+                src="pibble.jpg"
+                alt="Pibble">
+
+
+            <img
+                src="foca.jpg"
+                alt="Foca">
+
+
+            <img
+                src="gato.jpg"
+                alt="Gato">
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   MÚSICA
+========================= */
+
+const musicaInicio =
+    document.getElementById(
+        "musicaInicio"
+    );
+
+
+const musicaCarta =
+    document.getElementById(
+        "musicaCarta"
+    );
+
+
+/* =========================
+   COMENZAR
+========================= */
+
+function comenzar(){
+
+    musicaCarta.pause();
+
+    musicaCarta.currentTime = 0;
+
+    musicaInicio.currentTime = 0;
+
+    musicaInicio
+        .play()
+        .catch(() => {});
+
+
+    mostrarPantalla(
+        "juego"
+    );
+
+}
+
+
+/* =========================
+   CAMBIAR PANTALLA
+========================= */
+
+function mostrarPantalla(id){
+
+    document
+        .querySelectorAll(".pantalla")
+        .forEach(
+            p =>
+            p.classList.remove(
+                "activa"
+            )
+        );
+
+
+    document
+        .getElementById(id)
+        .classList.add(
+            "activa"
+        );
+
+}
+
+
+/* =========================
+   CORAZONES
+========================= */
+
+let corazones = 0;
+
+
+function encontrarCorazon(el){
+
+    if(
+        el.classList.contains(
+            "encontrado"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    el.classList.add(
+        "encontrado"
+    );
+
+
+    corazones++;
+
+
+    document
+        .getElementById(
+            "mensajeCorazones"
+        )
+        .textContent =
+        "Encontrados: "
+        + corazones
+        + " / 5";
+
+
+    explosionPequena(el);
+
+
+    if(corazones === 5){
+
+        setTimeout(() => {
+
+
+            mostrarPantalla(
+                "pibblePantalla"
+            );
+
+
+            const video =
+                document.getElementById(
+                    "videoPibble"
+                );
+
+
+            video.currentTime = 0;
+
+            video.muted = true;
+
+            video
+                .play()
+                .catch(() => {});
+
+
+        },700);
+
+    }
+
+}
+
+
+/* =========================
+   PIBBLE → ANIMALES
+========================= */
+
+function irAnimales(){
+
+    const video =
+        document.getElementById(
+            "videoPibble"
+        );
+
+
+    video.pause();
+
+
+    mostrarPantalla(
+        "animales"
+    );
+
+}
+
+
+/* =========================
+   ANIMALES
+========================= */
+
+let amigos = 0;
+
+
+function encontrarPersonaje(el){
+
+    if(
+        el.classList.contains(
+            "encontrado"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    el.classList.add(
+        "encontrado"
+    );
+
+
+    amigos++;
+
+
+    document
+        .getElementById(
+            "mensajeAnimales"
+        )
+        .textContent =
+        "Encontrados: "
+        + amigos
+        + " / 3";
+
+
+    if(amigos === 3){
+
+        setTimeout(() => {
+
+            /*
+             * LA MÚSICA DE INICIO
+             * SIGUE SONANDO.
+             */
+
+            mostrarPantalla(
+                "rompecabezasPantalla"
+            );
+
+
+            iniciarPuzzle();
+
+        },800);
+
+    }
+
+}
+
+
+/* =========================
+   ROMPECABEZAS
+========================= */
+
+let orden = [];
+
+let seleccion = null;
+
+
+function iniciarPuzzle(){
+
+    orden =
+        [0,1,2,3,4,5,6,7,8];
+
+
+    do{
+
+        orden.sort(
+            () =>
+            Math.random() - .5
+        );
+
+    }
+
+    while(
+        orden.every(
+            (v,i) =>
+            v === i
+        )
+    );
+
+
+    seleccion = null;
+
+
+    document
+        .getElementById(
+            "mensajePuzzle"
+        )
+        .textContent = "";
+
+
+    document
+        .getElementById(
+            "llave"
+        )
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById(
+            "botonLlave"
+        )
+        .style.display =
+        "none";
+
+
+    dibujarPuzzle();
+
+}
+
+
+function dibujarPuzzle(){
+
+    const tablero =
+        document.getElementById(
+            "tablero"
+        );
+
+
+    tablero.innerHTML = "";
+
+
+    orden.forEach(
+        (pos,i) => {
+
+
+            const pieza =
+                document.createElement(
+                    "div"
+                );
+
+
+            pieza.className =
+                "pieza";
+
+
+            if(
+                seleccion === i
+            ){
+
+                pieza.classList.add(
+                    "seleccionada"
+                );
+
+            }
+
+
+            const fila =
+                Math.floor(
+                    pos / 3
+                );
+
+
+            const col =
+                pos % 3;
+
+
+            pieza.style.backgroundPosition =
+                (col * 50)
+                + "% "
+                + (fila * 50)
+                + "%";
+
+
+            pieza.onclick =
+                () =>
+                seleccionarPieza(i);
+
+
+            tablero.appendChild(
+                pieza
+            );
+
+
+        }
+    );
+
+}
+
+
+function seleccionarPieza(i){
+
+    if(
+        seleccion === null
+    ){
+
+        seleccion = i;
+
+        dibujarPuzzle();
+
+        return;
+
+    }
+
+
+    if(
+        seleccion === i
+    ){
+
+        seleccion = null;
+
+        dibujarPuzzle();
+
+        return;
+
+    }
+
+
+    [
+        orden[seleccion],
+        orden[i]
+    ] = [
+        orden[i],
+        orden[seleccion]
+    ];
+
+
+    seleccion = null;
+
+
+    dibujarPuzzle();
+
+    comprobarPuzzle();
+
+}
+
+
+function comprobarPuzzle(){
+
+    if(
+        orden.every(
+            (v,i) =>
+            v === i
+        )
+    ){
+
+        document
+            .getElementById(
+                "mensajePuzzle"
+            )
+            .textContent =
+            "¡Imagen completada! ❤️";
+
+
+        document
+            .getElementById(
+                "llave"
+            )
+            .style.display =
+            "block";
+
+
+        document
+            .getElementById(
+                "botonLlave"
+            )
+            .style.display =
+            "inline-block";
+
+
+        explosion();
+
+    }
+
+}
+
+
+/* =========================
+   LLAVE
+========================= */
+
+function tomarLlave(){
+
+    mostrarPantalla(
+        "sobrePantalla"
+    );
+
+}
+
+
+/* =========================
+   ABRIR SOBRE
+========================= */
+
+function abrirSobre(){
+
+    /*
+     * AQUÍ TERMINA LA MÚSICA
+     * DE LA PRIMERA PARTE.
+     */
+
+    musicaInicio.pause();
+
+    musicaInicio.currentTime = 0;
+
+
+    /*
+     * AQUÍ COMIENZA LA MÚSICA
+     * DE LA CARTA.
+     */
+
+    musicaCarta.currentTime = 0;
+
+    musicaCarta
+        .play()
+        .catch(() => {});
+
+
+    pagina = 1;
+
+    mostrarPagina();
+
+
+    mostrarPantalla(
+        "carta"
+    );
+
+}
+
+
+/* =========================
+   CARTA
+========================= */
+
+let pagina = 1;
+
+
+function mostrarPagina(){
+
+    for(
+        let i = 1;
+        i <= 4;
+        i++
+    ){
+
+        document
+            .getElementById(
+                "pagina" + i
+            )
+            .classList.remove(
+                "activa"
+            );
+
+    }
+
+
+    document
+        .getElementById(
+            "pagina" + pagina
+        )
+        .classList.add(
+            "activa"
+        );
+
+
+    /*
+     * AL CAMBIAR DE PÁGINA
+     * VUELVE ARRIBA DE LA CARTA.
+     */
+
+    const cartaBox =
+        document.querySelector(
+            ".carta-box"
+        );
+
+
+    if(cartaBox){
+
+        cartaBox.scrollTop = 0;
+
+    }
+
+}
+
+
+function siguientePagina(){
+
+    if(
+        pagina < 4
+    ){
+
+        pagina++;
+
+        mostrarPagina();
+
+    }
+
+    else{
+
+        mostrarPantalla(
+            "final"
+        );
+
+        explosion();
+
+    }
+
+}
+
+
+function anteriorPagina(){
+
+    if(
+        pagina > 1
+    ){
+
+        pagina--;
+
+        mostrarPagina();
+
+    }
+
+}
+
+
+/* =========================
+   EXPLOSIÓN
+========================= */
+
+function explosion(){
+
+    for(
+        let i = 0;
+        i < 22;
+        i++
+    ){
+
+        const h =
+            document.createElement(
+                "div"
+            );
+
+
+        h.textContent =
+            "❤️";
+
+
+        h.style.position =
+            "fixed";
+
+
+        h.style.left =
+            "50%";
+
+
+        h.style.top =
+            "50%";
+
+
+        h.style.zIndex =
+            "20";
+
+
+        h.style.pointerEvents =
+            "none";
+
+
+        h.style.fontSize =
+            (15 +
+            Math.random() * 25)
+            + "px";
+
+
+        const x =
+            (Math.random() - .5)
+            * 80;
+
+
+        const y =
+            (Math.random() - .5)
+            * 80;
+
+
+        h.animate(
+
+            [
+
+                {
+
+                    transform:
+                        "translate(-50%,-50%) scale(.2)",
+
+                    opacity:1
+
+                },
+
+                {
+
+                    transform:
+                        `translate(
+                            calc(-50% + ${x}vw),
+                            calc(-50% + ${y}vh)
+                        ) scale(1.2)`,
+
+                    opacity:0
+
+                }
+
+            ],
+
+            {
+
+                duration:1300,
+
+                easing:"ease-out"
+
+            }
+
+        );
+
+
+        document.body.appendChild(
+            h
+        );
+
+
+        setTimeout(
+            () => h.remove(),
+            1400
+        );
+
+    }
+
+}
+
+
+/* =========================
+   EXPLOSIÓN PEQUEÑA
+========================= */
+
+function explosionPequena(el){
+
+    for(
+        let i = 0;
+        i < 8;
+        i++
+    ){
+
+        const h =
+            document.createElement(
+                "div"
+            );
+
+
+        h.textContent =
+            "❤️";
+
+
+        h.style.position =
+            "fixed";
+
+
+        const rect =
+            el.getBoundingClientRect();
+
+
+        h.style.left =
+            rect.left +
+            rect.width / 2 +
+            "px";
+
+
+        h.style.top =
+            rect.top +
+            rect.height / 2 +
+            "px";
+
+
+        h.style.zIndex =
+            "20";
+
+
+        h.style.pointerEvents =
+            "none";
+
+
+        h.style.fontSize =
+            "18px";
+
+
+        const x =
+            (Math.random() - .5)
+            * 150;
+
+
+        const y =
+            (Math.random() - .5)
+            * 150;
+
+
+        h.animate(
+
+            [
+
+                {
+
+                    transform:
+                        "translate(-50%,-50%) scale(.3)",
+
+                    opacity:1
+
+                },
+
+                {
+
+                    transform:
+                        `translate(
+                            calc(-50% + ${x}px),
+                            calc(-50% + ${y}px)
+                        ) scale(1)`,
+
+                    opacity:0
+
+                }
+
+            ],
+
+            {
+
+                duration:700,
+
+                easing:"ease-out"
+
+            }
+
+        );
+
+
+        document.body.appendChild(
+            h
+        );
+
+
+        setTimeout(
+            () => h.remove(),
+            800
+        );
+
+    }
+
+}
+
+
+/* =========================
+   ESTRELLAS
+========================= */
+
+function estrellas(){
+
+    for(
+        let i = 0;
+        i < 80;
+        i++
+    ){
+
+        const e =
+            document.createElement(
+                "span"
+            );
+
+
+        e.className =
+            "estrella";
+
+
+        e.style.left =
+            Math.random() * 100
+            + "%";
+
+
+        e.style.top =
+            Math.random() * 100
+            + "%";
+
+
+        e.style.animationDelay =
+            Math.random() * 2
+            + "s";
+
+
+        document.body.appendChild(
+            e
+        );
+
+    }
+
+}
+
+
+/* =========================
+   HOJAS
+========================= */
+
+function hojas(){
+
+    for(
+        let i = 0;
+        i < 14;
+        i++
+    ){
+
+        const h =
+            document.createElement(
+                "span"
+            );
+
+
+        h.className =
+            "hoja";
+
+
+        h.textContent =
+            Math.random() > .5
+            ? "🍂"
+            : "🍁";
+
+
+        h.style.left =
+            Math.random() * 100
+            + "%";
+
+
+        h.style.animationDuration =
+            (5 +
+            Math.random() * 7)
+            + "s";
+
+
+        h.style.animationDelay =
+            Math.random() * 7
+            + "s";
+
+
+        document.body.appendChild(
+            h
+        );
+
+    }
+
+}
+
+
+/* =========================
+   INICIAR EFECTOS
+========================= */
+
+estrellas();
+
+hojas();
+
+</script>
+
+</body>
+
+</html>
